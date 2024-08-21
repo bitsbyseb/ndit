@@ -12,8 +12,7 @@ would be a pleasure to work with you, please send me your ideas or something
 that you think would help this project to evolve in something bigger.
 
 ## **Usage**
-for now, Ndit just can be executed in local, compiling it from source,but
-i have plans to release it in npm as a cli app in order to share the project.
+you can compile it from source or install it from the npm registry,
 if you wanna compile it from the source, you must follow the next steps after
 you cloned the repository:
 
@@ -26,6 +25,16 @@ npm i
 node --run  start
 ```
 
+or you can install globally in your system:
+```javascript
+npm i -g ndit
+```
+
+then, you can use it, selecting any file:
+```javascript
+ndit <your file>
+```
+
 ## **Screenshots**
 
-![Ndit](./public/Ndit.png)
+![Ndit](./public/nodeEdit.png)

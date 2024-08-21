@@ -1,6 +1,6 @@
 {
-  "name": "Ndit",
-  "version": "0.0.1",
+  "name": "ndit",
+  "version": "0.0.2",
   "main": "index.js",
   "bin": {
     "ndit":"./dist/index.js"
