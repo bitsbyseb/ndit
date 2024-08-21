@@ -1,0 +1,14 @@
+-----------------------------------------------------
+ Welcome to NodeEdit - A Minimalist Node.js Text Editor
+-----------------------------------------------------
+
+ NodeEdit v0.0.1
+
+ Your new command-line companion for effortless editing.
+ Lightweight, fast, and customizable.
+
+  - Type .help for a list of commands
+  - Type .exit to exit the editor
+
+ Let's get coding!
+-----------------------------------------------------
