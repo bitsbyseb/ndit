@@ -1,17 +1,21 @@
 {
-  "name": "text-editor",
-  "version": "1.0.0",
+  "name": "NodeEdit",
+  "version": "0.0.1",
   "main": "index.js",
+  "bin": {
+    "ndit":"./dist/index.js"
+  },
   "scripts": {
-    "test": "nodemon src/index.ts src/index.ts"
+    "test": "nodemon src/index.ts src/index.ts",
+    "start":"tsc && node dist/index.js test.txt"
   },
   "keywords": [
     "terminal",
     "code",
     "editor"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": "johan_puentes<buk76twitch@gmail.com>",
+"license":"MIT",
   "description": "",
   "devDependencies": {
     "nodemon": "^3.1.4",
