@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import type { commandStructure } from "./models/command.model";
 import EditorService from "./services/editor.service";
-const pathToFile = process.argv[2];
 
 const commands: commandStructure[] = [
     {
@@ -54,4 +53,4 @@ const commands: commandStructure[] = [
     },
 ] as const;
 
-const editorInstance = new EditorService(pathToFile,commands);
+const editorInstance = EditorService.getInstance(commands);

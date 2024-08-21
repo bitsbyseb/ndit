@@ -1,5 +1,5 @@
 -----------------------------------------------------
- Welcome to NodeEdit - A Minimalist Node.js Text Editor
+ Welcome to Ndit - A Minimalist Node.js Text Editor
 -----------------------------------------------------
 
  NodeEdit v0.0.1

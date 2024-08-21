@@ -4,8 +4,10 @@ import type { commandStructure } from '../models/command.model';
 import chalk from 'chalk';
 
 export default class EditorService {
-    static editorName = "NodeEdit";
-    private lines: string[];
+    static instance:EditorService;
+    static editorName = "Ndit";
+    private fileName = process.argv[2] ?? "./test.txt";
+    private lines: string[] = [];
     public intl = createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -14,11 +16,18 @@ export default class EditorService {
     private startLine = 1;
     public outputFile: Function;
 
-    constructor(private fileName: string, commands: commandStructure[]) {
+    private constructor(commands: commandStructure[]) {
         this.lines = this.readFileLines();
         this.outputFile = this.logFile();
         this.setupInterface(commands);
         this.outputFile(false);
+    }
+
+    static getInstance(commands:commandStructure[]) {
+        if (!EditorService.instance) {
+            EditorService.instance = new EditorService(commands);
+        }
+        return EditorService.instance;
     }
 
     private readFileLines(): string[] {
@@ -32,7 +41,7 @@ export default class EditorService {
         });
     }
 
-    logFile() {
+     logFile() {
         return (scrollDown?: boolean) => {
             if (this.lines.length < this.MAX_LINE_PER_PAGE) {
                 this.MAX_LINE_PER_PAGE = this.lines.length;
@@ -72,7 +81,7 @@ export default class EditorService {
         );
     }
 
-    editLine(lineToEdit: number, data: string) {
+     editLine(lineToEdit: number, data: string) {
         try {
             this.lines[lineToEdit - 1] = data;
             fs.writeFileSync(this.fileName, this.lines.join("\n"), { encoding: "utf-8" });
