@@ -1,12 +1,13 @@
 import * as fs from 'node:fs';
 import { createInterface } from 'node:readline';
 import type { commandStructure } from '../models/command.model';
+import {join} from 'node:path';
 import chalk from 'chalk';
 
 export default class EditorService {
     static instance:EditorService;
     static editorName = "Ndit";
-    private fileName = process.argv[2] ?? "./test.txt";
+    private fileName = process.argv[2] ?? join(__filename.substring(0,__filename.length-32),'test.txt');
     private lines: string[] = [];
     public intl = createInterface({
         input: process.stdin,
@@ -22,26 +23,26 @@ export default class EditorService {
         this.setupInterface(commands);
         this.outputFile(false);
     }
-
+    
     static getInstance(commands:commandStructure[]) {
         if (!EditorService.instance) {
             EditorService.instance = new EditorService(commands);
         }
         return EditorService.instance;
     }
-
+    
     private readFileLines(): string[] {
         return fs.readFileSync(this.fileName, { encoding: "utf-8" }).split(/\n/g);
     }
-
+    
     private setupInterface(commands: commandStructure[]) {
         this.intl.on("line", (data) => {
             const command = commands.find((value) => data.startsWith(value.name));
             command?.action(data, this.intl);
         });
     }
-
-     logFile() {
+    
+    logFile() {
         return (scrollDown?: boolean) => {
             if (this.lines.length < this.MAX_LINE_PER_PAGE) {
                 this.MAX_LINE_PER_PAGE = this.lines.length;
@@ -50,11 +51,11 @@ export default class EditorService {
             if (scrollDown && (this.startLine + this.MAX_LINE_PER_PAGE < this.lines.length)) {
                 this.startLine++;
             }
-
+            
             if (!scrollDown && this.startLine > 0) {
                 this.startLine--;
             }
-
+            
             this.printLines();
             this.printStatusBar(this.startLine, this.lines.length);
         };
