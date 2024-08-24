@@ -1,13 +1,17 @@
 {
   "name": "ndit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "bin": {
-    "ndit":"./dist/index.js"
+    "ndit": "./dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitsbyseb/ndit.git"
   },
   "scripts": {
     "test": "nodemon src/index.ts src/index.ts",
-    "start":"tsc && node dist/index.js test.txt"
+    "start": "tsc && node dist/index.js test.txt"
   },
   "keywords": [
     "terminal",
@@ -15,7 +19,7 @@
     "editor"
   ],
   "author": "johan_puentes<buk76twitch@gmail.com>",
-"license":"MIT",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
     "nodemon": "^3.1.4",

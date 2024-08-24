@@ -1,4 +1,4 @@
-import * as fs from 'node:fs';
+import {writeFileSync,readFileSync} from 'node:fs';
 import { createInterface } from 'node:readline';
 import type { commandStructure } from '../models/command.model';
 import {join} from 'node:path';
@@ -32,7 +32,7 @@ export default class EditorService {
     }
     
     private readFileLines(): string[] {
-        return fs.readFileSync(this.fileName, { encoding: "utf-8" }).split(/\n/g);
+        return readFileSync(this.fileName, { encoding: "utf-8" }).split(/\n/g);
     }
     
     private setupInterface(commands: commandStructure[]) {
@@ -62,7 +62,7 @@ export default class EditorService {
     }
 
     private printLines() {
-        // process.stdout.write("\n" + ("-".repeat(getArrMaxLength(this.lines) / 2)) + "\n");
+        process.stdout.write("\n" + ("-".repeat(process.stdout.columns)) + "\n");
         for (let i = 0; i < this.MAX_LINE_PER_PAGE; i++) {
             const currentLineIndex = (i + this.startLine + 1) > this.lines.length
                 ? (i + this.startLine + 1) - this.MAX_LINE_PER_PAGE
@@ -73,7 +73,7 @@ export default class EditorService {
                 );
             }
         }
-        // process.stdout.write("-".repeat(getArrMaxLength(this.lines) / 2) + "\n");
+        process.stdout.write("-".repeat(process.stdout.columns) + "\n");
     }
 
     private printStatusBar(startLine: number, totalFileLines: number) {
@@ -85,7 +85,7 @@ export default class EditorService {
      editLine(lineToEdit: number, data: string) {
         try {
             this.lines[lineToEdit - 1] = data;
-            fs.writeFileSync(this.fileName, this.lines.join("\n"), { encoding: "utf-8" });
+            writeFileSync(this.fileName, this.lines.join("\n"), { encoding: "utf-8" });
         } catch (error) {
             console.error("Bad file handling", error);
         }
@@ -94,7 +94,7 @@ export default class EditorService {
     deleteLine(lineToDelete: number) {
         try {
             this.lines.splice(lineToDelete - 1, 1);
-            fs.writeFileSync(this.fileName, this.lines.join("\n"));
+            writeFileSync(this.fileName, this.lines.join("\n"));
         } catch (error) {
             console.error("Something went wrong deleting the line", error);
         }
