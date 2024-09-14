@@ -7,45 +7,45 @@ const commands: commandStructure[] = [
     {
         name: "down",
         description:"go one line down",
-        action: (_, rl) => {
+        action: (_, rl,editor) => {
             rl.write(null, { ctrl: true, name: "l" });
-            editorInstance.outputFile(true);
+            editor.outputFile(true);
         },
     },
     {
         name: "up",
         description:"go one line up",
-        action: (_, rl) => {
+        action: (_, rl,editor) => {
             rl.write(null, { ctrl: true, name: "l" });
-            editorInstance.outputFile(false);
+            editor.outputFile(false);
         },
     },
     {
         name: ".edit:",
         description:"edit a line",
-        action: (data, rl) => {
+        action: (data, rl,editor) => {
             const lineNumber = parseInt(data.substring(6));
             rl.once("line", (data) => {
-                editorInstance.editLine(lineNumber, data);
-                editorInstance.intl.write(null, { ctrl: true, name: "l" });
-                editorInstance.outputFile();
+                editor.editLine(lineNumber, data);
+                editor.intl.write(null, { ctrl: true, name: "l" });
+                editor.outputFile();
             });
         },
     },
     {
         name: ".dl:",
         description:"delete a line",
-        action(data, rl) {
+        action(data, rl,editor) {
             const lineNumber = parseInt(data.substring(4));
-            editorInstance.deleteLine(lineNumber);
+            editor.deleteLine(lineNumber);
             rl.write(null, { ctrl: true, name: "l" });
-            editorInstance.outputFile();
+            editor.outputFile();
         },
     },
     {
         name: ".exit",
         description:"close the editor",
-        action(_,rl) {
+        action(_,rl,editor) {
             rl.close();
             process.exit(0);
         },
@@ -53,15 +53,15 @@ const commands: commandStructure[] = [
     {
         name: ".clear",
         description:"clear the screen",
-        action(_, rl) {
+        action(_, rl,editor) {
             rl.write(null, { ctrl: true, name: "l" });
-            editorInstance.outputFile();
+            editor.outputFile();
         },
     },
     {
         name:".help",
         description:"show this message",
-        action(_,rl) {
+        action(_,rl,editor) {
             rl.write(null, { ctrl: true, name: "l" });
             for (let i = 0; i < commands.length; i++) {
                 const element = commands[i];

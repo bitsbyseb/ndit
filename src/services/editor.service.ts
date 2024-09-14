@@ -38,7 +38,7 @@ export default class EditorService {
     private setupInterface(commands: commandStructure[]) {
         this.intl.on("line", (data) => {
             const command = commands.find((value) => data.startsWith(value.name));
-            command?.action(data, this.intl);
+            command?.action(data, this.intl,EditorService.getInstance(commands));
         });
     }
     
